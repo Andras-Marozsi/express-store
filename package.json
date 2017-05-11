@@ -1,0 +1,19 @@
+{
+  "name": "express-store",
+  "version": "0.0.1",
+  "description": "Spike for express-store",
+  "main": "",
+  "author": "Andras Marozsi",
+  "repository": "",
+  "private": "true",
+  "devDependencies": {
+    "body-parser": "1.17.1",
+    "express": "4.15.2",
+    "request": "2.81.0",
+    "request-promise": "4.2.1",
+    "winston": "2.3.1"
+  },
+  "scripts": {
+    "test": "node run"
+  }
+}

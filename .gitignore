@@ -1,0 +1,10 @@
+.idea
+.metadata
+.settings
+.DS_Store
+/.project
+/npm-debug.log
+data
+log
+node_modules
+test.js
