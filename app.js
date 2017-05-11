@@ -2,6 +2,7 @@ const logger = require("./helpers/logger").logger.createLogger('app.js');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const serverPort = process.env.SERVER_PORT || 3000;
 var dataStore = require('./router/data_store');
 
 app.use(bodyParser.json());
@@ -18,4 +19,4 @@ app.get('/', (req, res) => {
 
 app.use('/storage', dataStore);
 
-app.listen(3000);
+app.listen(serverPort);
