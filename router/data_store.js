@@ -8,16 +8,21 @@ var dataExtension = '.data';
 
 router.get('/:fileName([a-zA-Z0-9_]+)/', function (req, res) {
   logger.info("Request for getting data: " + req.params.fileName);
-  var data;
-  if (helper.checkFile(dataPath + req.params.fileName + dataExtension)) {
-    logger.debug("Found data: " + req.params.fileName);
-    data = helper.readFile(dataPath + req.params.fileName + dataExtension);
-    res.status(200)
+  if (!!req.query._update) {
+    logger.info("Updating/saving data instead of retrieving.");
+    helper.storeData('./data/storage/' + req.params.fileName + dataExtension, req.query._update);
+    data = "Successfully stored data '" + req.params.fileName + "'";
   } else {
-    logger.error('Data not found!');
-    data = "No data";
+    var data;
+    if (helper.checkFile(dataPath + req.params.fileName + dataExtension)) {
+      logger.debug("Found data: " + req.params.fileName);
+      data = helper.readFile(dataPath + req.params.fileName + dataExtension);
+    } else {
+      logger.error('Data not found!');
+      data = "No data";
+    }
+    res.send(data);
   }
-  res.send(data);
 });
 
 router.post('/:fileName([a-zA-Z0-9_]+)/', function (req, res) {
