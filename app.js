@@ -4,6 +4,11 @@ const app = express();
 const bodyParser = require('body-parser');
 const serverPort = process.env.SERVER_PORT || 3000;
 var dataStore = require('./router/data_store');
+var logs = [];
+
+logger.stream({start: -1}).on('log', function (log) {
+  logs.unshift(log.timestamp + ' - ' + log.level + ' - [' + log.label + '] - ' + log.message.toString());
+});
 
 app.use(bodyParser.json());
 
@@ -14,6 +19,14 @@ app.get('/', (req, res) => {
     Usage: [
       {POST: "Store data in the app. Overwrites existing data with the same name"},
       {GET: "Retrieve data stored by the given key"}]
+  })
+});
+
+app.get('/logs', (req, res) => {
+  logger.info("Sending logs");
+
+  res.send({
+    logs: logs
   })
 });
 
